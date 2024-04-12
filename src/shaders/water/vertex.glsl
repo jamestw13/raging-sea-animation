@@ -17,12 +17,26 @@ varying vec3 vPosition;
 
 void main()
 {
+    // Base position
+    float shift = 0.01;
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+    vec3 modelPositionA = modelPosition.xyz + vec3(shift, 0.0, 0.0);
+    vec3 modelPositionB = modelPosition.xyz + vec3(0.0, 0.0, -shift);
 
     // Elevation
     float elevation = waveElevation(modelPosition.xyz);
-    
     modelPosition.y += elevation;
+    modelPositionA.y += waveElevation(modelPositionA);
+    modelPositionB.y += waveElevation(modelPositionB);
+
+    // Compute normal
+    vec3 toA = normalize(modelPositionA - modelPosition.xyz);
+    vec3 toB = normalize(modelPositionB - modelPosition.xyz);
+    vec3 computeNormal = cross(toA, toB);
+    
+    
+    
+
 
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
@@ -30,6 +44,6 @@ void main()
 
 // Varyings
     vElevation = elevation;
-    vNormal = (modelMatrix * vec4(normal, 0.0)).xyz;
+    vNormal = computeNormal;
     vPosition = modelPosition.xyz;
 }
