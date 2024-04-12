@@ -8,6 +8,8 @@ uniform float uSmallWavesFrequency;
 uniform float uSmallWavesSpeed; 
 uniform float uSmallIterations;
 
+uniform float uNeighborShift;
+
 varying float vElevation;
 varying vec3 vNormal;
 varying vec3 vPosition;
@@ -18,7 +20,7 @@ varying vec3 vPosition;
 void main()
 {
     // Base position
-    float shift = 0.01;
+    float shift = uNeighborShift;
     vec4 modelPosition = modelMatrix * vec4(position, 1.0);
     vec3 modelPositionA = modelPosition.xyz + vec3(shift, 0.0, 0.0);
     vec3 modelPositionB = modelPosition.xyz + vec3(0.0, 0.0, -shift);

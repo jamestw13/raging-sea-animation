@@ -56,6 +56,8 @@ const waterMaterial = new THREE.ShaderMaterial({
     uSurfaceColor: { value: new THREE.Color(debugObject.surfaceColor) },
     uColorOffset: { value: 0.925 },
     uColorMultiplier: { value: 1 },
+
+    uNeighborShift: { value: 0.01 },
   },
 });
 
@@ -71,6 +73,8 @@ gui.add(waterMaterial.uniforms.uSmallIterations, 'value').min(0).max(5).step(1).
 
 gui.add(waterMaterial.uniforms.uColorOffset, 'value').min(0).max(1).step(0.001).name('uColorOffset');
 gui.add(waterMaterial.uniforms.uColorMultiplier, 'value').min(0).max(10).step(0.001).name('uColorMultiplier');
+
+gui.add(waterMaterial.uniforms.uNeighborShift, 'value').min(0.0001).max(1).step(0.0001).name('uNeighborShift');
 
 // Mesh
 const water = new THREE.Mesh(waterGeometry, waterMaterial);
