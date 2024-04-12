@@ -34,10 +34,6 @@ void main()
     vec3 toB = normalize(modelPositionB - modelPosition.xyz);
     vec3 computeNormal = cross(toA, toB);
     
-    
-    
-
-
     vec4 viewPosition = viewMatrix * modelPosition;
     vec4 projectedPosition = projectionMatrix * viewPosition;
     gl_Position = projectedPosition;
